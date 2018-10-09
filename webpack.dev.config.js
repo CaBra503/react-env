@@ -1,8 +1,8 @@
 const path = require("path");
-const weback = require("webpack");
+const webpack = require("webpack");
 
 module.exports = {
-	entry:"./src/app.js",
+	entry:"./src/index.js",
 	mode:"development",
 	module: {
 		rules:[
@@ -22,7 +22,13 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, "dist/"),
 		publicPath: "/dist/",
-		filesname: "bundle.js"
+		filename: "bundle.js"
 	},
-	plugins: [new webpack.hotModuleReplacementPlugin()]
+		devServer: {
+			contentBase: path.join(__dirname, "public/"),
+			port: 3000,
+			publicPath: "http://localhost:3000/dist/",
+			hotOnly: true
+		},
+	plugins: [ new  webpack.HotModuleReplacementPlugin()]
 };
